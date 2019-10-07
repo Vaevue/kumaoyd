@@ -27,6 +27,7 @@
 
                   
                     <div class="lists">
+                    <p @click ='gogogo()'>11</p>
                         <ul>
                             <li @click ='gogogo(item,index)' v-for ='(item,index) in list' :key ='item.id'>
                                    <div class="name">
@@ -45,13 +46,15 @@
                 </div>
             </div>
         </v-scroll>
+        <v-plear v-show ='playcontent'></v-plear>
     </div>
 </template>
 
 <script>
 import vScroll from './scroll'
 import {createSong} from './js/Song'
-import {mapActions,mapGetters} from 'vuex'
+import {mapActions,mapGetters,mapMutations} from 'vuex'
+import vPlear from '../components/plear/plear.vue'
 export default {
     props:['list'],
     data(){
@@ -60,9 +63,10 @@ export default {
          lis:[]
         }
     },
-    components:{vScroll},
+    components:{vScroll,vPlear},
    methods: {
        gogogo(item,index){
+        this.lis = []
           let arr = this.list
           for(let i =0;i<arr.length;i++){
               this.lis.push(createSong(arr[i]))
@@ -74,21 +78,24 @@ export default {
           })
        },
        scroll(obj){
+        let tonav = document.getElementById('tonav')
            if(obj.y > -274){
-                let tonav = document.getElementById('tonav')
                tonav.style.transform = 'translateY(-100%)'
                tonav.style.opacity = 0
            }  
            if(obj.y < -274){
-               let tonav = document.getElementById('tonav')
                tonav.style.transform = 'translateY(0)'
                tonav.style.opacity = 1
            }
+       
        },
-      ...mapActions(['selectplay'])
+      ...mapActions(['selectplay']),
+       ...mapMutations({
+            setplct : 'SET_PLAYCONTENT'
+        })
    },
    computed : {
-       ...mapGetters(['playlist'])
+       ...mapGetters(['playlist','playcontent'])
    },
    mounted(){
         setTimeout(() => {
