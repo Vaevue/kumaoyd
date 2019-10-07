@@ -39,12 +39,11 @@
                                 </p>
                             </li>
                         </ul>
-
-                        
                     </div>
                 </div>
             </div>
         </v-scroll>
+        <v-plear v-show ='playcontent'></v-plear>
     </div>
 </template>
 
@@ -52,6 +51,7 @@
 import vScroll from './scroll'
 import {createSong} from './js/Song'
 import {mapActions,mapGetters} from 'vuex'
+import vPlear from '../components/plear/plear'
 export default {
     props:['list'],
     data(){
@@ -60,18 +60,19 @@ export default {
          lis:[]
         }
     },
-    components:{vScroll},
+    components:{vScroll,vPlear},
    methods: {
        gogogo(item,index){
-          let arr = this.list
-          for(let i =0;i<arr.length;i++){
-              this.lis.push(createSong(arr[i]))
+             this.lis = []
+          for(let i = 0,len=this.list.length;i<len;i++){
+              this.lis.push(createSong(this.list[i]))
           }
           console.log(this.lis)
           this.selectplay({
               list : this.lis,
               index : index
           })
+          console.log(this.currentSong)
        },
        scroll(obj){
            if(obj.y > -274){
@@ -88,7 +89,7 @@ export default {
       ...mapActions(['selectplay'])
    },
    computed : {
-       ...mapGetters(['playlist'])
+       ...mapGetters(['playlist','currentSong','playcontent'])
    },
    mounted(){
         setTimeout(() => {

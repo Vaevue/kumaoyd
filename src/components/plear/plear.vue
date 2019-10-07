@@ -2,12 +2,18 @@
     <transition name ='plear' v-show="playlist.length>0">
     <div class ='plearContainer'>
         <div class="bigplear" v-show = 'playcontent'>
-            大播放器
+            <div class="top">
+                <span class="back fa fa-chevron-down"></span>
+                <span class="gequname">{{currentSong.songname}}</span>  
+                <span class='singername'>{{currentSong.singername}}</span>
+            </div>
         </div>
-        <div class="smallplear">
+        <div class="smallplear" v-show ='playcontent == false'>
             小播放器
         </div>
+         <audio :src="currentSong.url" autoplay></audio>
     </div>
+   
     </transition>
 </template>  
 
@@ -15,7 +21,7 @@
 import {mapGetters} from 'vuex'
 export default {
     computed: {
-        ...mapGetters(['playcontent','playlist'])
+        ...mapGetters(['playcontent','playlist','currentSong'])
     },
     mounted(){
         console.log(this.playcontent)
