@@ -33,7 +33,7 @@ export default {
     },
     methods:{
         getmvtop(){
-            this.$ajax.get('api/top/mv',{
+            this.$ajax.get('http://140.143.128.100:3000/top/mv',{
                 params:{
                     limit:5,
                     offset : this.page * 5
@@ -45,7 +45,7 @@ export default {
         jiezhe(e){
             e.target.innerHTML = '加载更多数据中...'
             this.page++
-            this.$ajax.get('api/top/mv',{
+            this.$ajax.get('http://140.143.128.100:3000/top/mv',{
                 params:{
                     limit:5,
                     offset : this.page * 5

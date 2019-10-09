@@ -62,7 +62,7 @@ export default {
     },
     methods:{
         gethotsearch(){
-            this.$ajax.get('api/search/hot/detail').then((res) => {
+            this.$ajax.get('http://140.143.128.100:3000/search/hot/detail').then((res) => {
                 this.hotsearch = res.data.data
             })
         },
@@ -73,7 +73,7 @@ export default {
                 getsearch(){
                     console.log(this.keyword)
                     console.log(this.types)
-         this.$ajax.get('api/search',{
+         this.$ajax.get('http://140.143.128.100:3000/search',{
                     params:{
                         limit:10,
                         keywords :this.searchWord,
@@ -102,7 +102,7 @@ export default {
     mounted(){
         document.getElementsByTagName('input')[0].addEventListener('keyup',()=>{
             setTimeout(()=>{
-                this.$ajax.get('api/search',{
+                this.$ajax.get('http://140.143.128.100:3000/search',{
                     params:{
                         keywords : this.keyword,
                         limit:10,

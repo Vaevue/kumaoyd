@@ -237,7 +237,7 @@ export default {
         return `${m}:${s}`
       },
       getlyric(){
-          this.$ajax.get('api/lyric',{
+          this.$ajax.get('http://140.143.128.100:3000/lyric',{
               params:{
                   id:this.currentSong.id
               }

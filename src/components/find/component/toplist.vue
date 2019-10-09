@@ -70,7 +70,7 @@ export default {
             this.toplistFlag = true
         },
         gettoplist(){
-            this.$ajax.get('api/toplist').then((res)=>{
+            this.$ajax.get('http://140.143.128.100:3000/toplist').then((res)=>{
                 let arr = res.data.list
                 if(arr){
                     this.flag = true
@@ -88,7 +88,7 @@ export default {
             })
         },
         getlist(id){
-            this.$ajax.get('api/playlist/detail',{
+            this.$ajax.get('http://140.143.128.100:3000/playlist/detail',{
                 params:{
                     id: id,
                     limit:10
