@@ -25,7 +25,6 @@
         </div>
         <v-searchinfo v-if ='flag' :infos ='infos'></v-searchinfo>
         <div class="hottop" v-show ='!flag'>
-            <div class="wrapper">
                 <h6>热搜榜</h6>
              <ul>
                 <li v-for ='(item,index) in hotsearch' :key ='item.content' @click ='keywords(item)'>
@@ -37,7 +36,6 @@
                     <span class="cont">{{item.score}}</span>
                 </li>
             </ul>
-            </div>
         </div>
     </div>
 </template>

@@ -17,7 +17,6 @@
       </div>
     </div>
   </div>
-          <div class="wrapper">
             <div class="zonghe" v-show ='types == 1018'>
       <div class="nkngxq">
       <p @click ='itt'>你可能感兴趣</p>
@@ -75,7 +74,6 @@
   </div>
   </div>
           </div>
-    </div>
 </template>
 
 <script>
