@@ -6,7 +6,7 @@
             <router-link tag ='li' to="/find">发现</router-link> 
             <router-link tag ='li' to="/yuncun">电台</router-link>
             <router-link tag ='li' to="/video">视频</router-link>
-            <li><span class ='fa fa-plus'></span></li>
+            <router-link tag ='li' to='/search'><span class ='fa fa-search'></span></router-link>
         </ul>
     </div>
 </template>

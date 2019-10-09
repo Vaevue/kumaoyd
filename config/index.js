@@ -12,7 +12,7 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/api': {
-				target: 'https://musicapi.leanapp.cn',
+				target: 'http://140.143.128.100:3000',
 				changeOrigin: true,
 				pathRewrite: {
 					'^/api': '/'

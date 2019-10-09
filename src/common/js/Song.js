@@ -1,5 +1,5 @@
 export default class Song {
-constructor({ id,songname,alname,singername,mvid,interval,img,url }){
+constructor({ id,songname,alname,singername,mvid,interval,img,url,lyric}){
         this.id = id
         this.songname = songname
         this.alname = alname
@@ -8,6 +8,7 @@ constructor({ id,songname,alname,singername,mvid,interval,img,url }){
         this.interval = interval
         this.img = img
         this.url = url
+        this.lyric = lyric
     }
 }
 
@@ -22,7 +23,8 @@ export function createSong(item){
         mvid:item.mv,
         interval : item.dt,
         img:item.al.picUrl,
-        url : ` https://music.163.com/song/media/outer/url?id=${item.id}.mp3`
+        url : ` https://music.163.com/song/media/outer/url?id=${item.id}.mp3`,
+        lyric:''
     })
 }
 

@@ -13,10 +13,10 @@
                     <v-loading v-if = 'flag == false'></v-loading>
                                    <div class="ccc">
                                       <div class="content" v-for ='(item,index) in lists' :key ='index' >
-                                  
             <ul v-for ='list in item' :key ='list.id' @click ='gotoplist(list)'>
                 
-                <!-- <p>{{item.}}</p> -->
+
+
                 <li>
                    <img v-lazy ="list.coverImgUrl"> 
                    <div class="right">
@@ -54,17 +54,19 @@ export default {
         }
     },
     methods: {
+        ceshi(){
+            this.toplistFlag = true
+        },
         back(){
             this.$router.back()
         },
         bak(fl){
-            this.toplistFlag = fl
+            this.toplistFlag = false
         },
         gotoplist(list){
             this.name = list.name
             let id = list.id
             this.getlist(id)
-            console.log(list)
             this.toplistFlag = true
         },
         gettoplist(){

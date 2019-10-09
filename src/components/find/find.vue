@@ -5,12 +5,12 @@
         <!-- 分类区块 -->
         <div class="fenlei">
             <ul>
-                <li>
+                <router-link to ='/mrtj' tag ='li'>
                     <p>
                         <span class = 'fa fa-calendar-o'></span>
                     </p>
                     <p>每日推荐</p>
-                </li>
+                </router-link>
 
                  <li>
                     <p>

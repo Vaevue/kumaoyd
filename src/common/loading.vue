@@ -14,13 +14,13 @@
             text-align: center;
           span{
               font-size: 30px;
-              animation:rotate 2s ease forwards infinite;
+              animation:rotates 2s ease forwards infinite;
           }
           
         }
         
     }
-  @keyframes rotate {
+  @keyframes rotates {
       form{
           transform: rotate(0)
       }

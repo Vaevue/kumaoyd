@@ -11,6 +11,7 @@ import 'font-awesome/css/font-awesome.min.css'
 import mintui from 'mint-ui'
 import store from './store/index'
 Vue.use(mintui)
+
 import {Lazyload} from 'mint-ui'
 Vue.use(Lazyload, {
   preLoad: 1.3,

@@ -1,6 +1,6 @@
 <template>
     <div class ='gequlistContainer'>
-          <div class="to to2" id ='tonav'>
+          <div class="to" id ='tonav' v-show ='flag'>
                         <div class ='vleft'>
                             <span class ='play fa fa-play-circle-o'></span>
                             <span>播放全部 <small>(共{{list.length}}首歌)</small></span>
@@ -14,21 +14,9 @@
             
             <div class="wrappers" ref ='wrp'>
                 <div class="contents" ref ='cont'>
-                     <div class="to">
-                        <div class ='vleft'>
-                            <span class ='play fa fa-play-circle-o'></span>
-                            <span>播放全部 <small>(共{{list.length}}首歌)</small></span>
-                        </div>
-                        <div class="vright">
-                            <span class ='fa fa-plus'></span>
-                            收藏(23.3万)
-                        </div>
-                    </div>
-
-                  
                     <div class="lists">
                         <ul>
-                            <li @click ='gogogo(item,index)' v-for ='(item,index) in list' :key ='item.id'>
+                            <li :class ='current == index ? "red" : ""' @click ='gogogo(item,index)' v-for ='(item,index) in list' :key ='item.id'>
                                    <div class="name">
                                        <p class ='gequname'>{{item.name}}</p>
                                        <p class ='singername'>{{item.ar[0].name}}</p>
@@ -43,29 +31,39 @@
                 </div>
             </div>
         </v-scroll>
-        <v-plear v-show ='playcontent'></v-plear>
     </div>
 </template>
 
 <script>
 import vScroll from './scroll'
 import {createSong} from './js/Song'
-import {mapActions,mapGetters} from 'vuex'
-import vPlear from '../components/plear/plear'
+import {mapActions,mapGetters,mapMutations} from 'vuex'
+import vPlear from '../components/plear/plear.vue'
 export default {
-    props:['list'],
+    props:{
+        list:{
+            type:Array,
+            default : []
+        },
+        flag : {
+            type: Boolean,
+            default : true
+        }
+    },
     data(){
         return {
          arr:[],
-         lis:[]
+         lis:[],
         }
     },
     components:{vScroll,vPlear},
    methods: {
        gogogo(item,index){
-             this.lis = []
-          for(let i = 0,len=this.list.length;i<len;i++){
-              this.lis.push(createSong(this.list[i]))
+           console.log(item)
+        this.lis = []
+          let arr = this.list
+          for(let i =0;i<arr.length;i++){
+              this.lis.push(createSong(arr[i]))
           }
           console.log(this.lis)
           this.selectplay({
@@ -75,21 +73,21 @@ export default {
           console.log(this.currentSong)
        },
        scroll(obj){
-           if(obj.y > -274){
-                let tonav = document.getElementById('tonav')
-               tonav.style.transform = 'translateY(-100%)'
-               tonav.style.opacity = 0
-           }  
-           if(obj.y < -274){
-               let tonav = document.getElementById('tonav')
-               tonav.style.transform = 'translateY(0)'
-               tonav.style.opacity = 1
-           }
+        let tonav = document.getElementById('tonav')
+        let sty = this.$refs.wrp.attributes[2].nodeValue
+        console.log(this.$refs.wrp.attributes[2])
+        tonav.style.cssText = `${sty} transition:all .2s linear`
+        if(obj.y < -222){
+            tonav.style.cssText = 'position:fixed;top:0px;z-index:999;'
+        }
        },
-      ...mapActions(['selectplay'])
+      ...mapActions(['selectplay']),
+       ...mapMutations({
+            setplct : 'SET_PLAYCONTENT'
+        })
    },
    computed : {
-       ...mapGetters(['playlist','currentSong','playcontent'])
+       ...mapGetters(['playlist','playcontent','current'])
    },
    mounted(){
         setTimeout(() => {
@@ -100,6 +98,9 @@ export default {
 </script>
 
 <style lang="less">
+.red{
+    color:#31c27c !important;
+}
 .to2 {
 position: fixed;
 top: 0;
@@ -121,6 +122,7 @@ opacity:0;
                     background-color: #fff;
                     border-bottom-left-radius: 0px;
                     border-bottom-right-radius: 0px;
+                    width: 100%;
                     .vleft{
                     padding-left:20px;
                     font-size:13px;

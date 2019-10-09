@@ -1,7 +1,7 @@
- const  modes = {
+ var  modes = {
     random : 1,
     selectplay : 2,
-    random : 3
+    loop : 3
 }
 
 export default modes

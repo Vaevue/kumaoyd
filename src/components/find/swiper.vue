@@ -2,7 +2,7 @@
     <div class ='swiperContainer'>
     <mt-swipe :auto="4000">  
     <mt-swipe-item v-for ='(item,index) in banners' :key = 'index'>
-            <img :src="item.picUrl">
+            <img :src="item.pic">
     </mt-swipe-item>  
     </mt-swipe> 
     </div>
@@ -23,6 +23,7 @@ export default {
               }
           }).then((res) => {
               this.banners = res.data.banners
+              console.log(this.banners)
           })
         }
     },
