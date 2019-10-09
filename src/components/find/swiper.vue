@@ -17,7 +17,7 @@ export default {
     },
     methods:{
         getswiper () {
-          this.$ajax.get('http://140.143.128.100:3000/banner',{
+          this.$ajax.get('api/banner',{
               params:{
                   type:1
               }
