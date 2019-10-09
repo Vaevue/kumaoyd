@@ -66,7 +66,7 @@ export default {
     },
     methods: {
                 getgedan(){
-            this.$ajax.get('api/personalized',{
+            this.$ajax.get('http://140.143.128.100:3000/personalized',{
                 params:{
                     limit:6
                 }
@@ -78,7 +78,7 @@ export default {
             
            if(i == 0){
                this.result2 = []
-               this.$ajax.get('api/top/album',{
+               this.$ajax.get('http://140.143.128.100:3000/top/album',{
                    params:{
                        limit:3
                    }
@@ -87,7 +87,7 @@ export default {
                })
                this.smalltitle2 = '更多新碟'
            }else if(i == 1) {
-              this.$ajax.get('api/top/song',{
+              this.$ajax.get('http://140.143.128.100:3000/top/song',{
                     params:{
                         type:0
                     }
@@ -115,7 +115,7 @@ export default {
            } 
         },
         clds(){
-            this.$ajax.get('api/top/album',{
+            this.$ajax.get('http://140.143.128.100:3000/top/album',{
                    params:{
                        limit:3
                    }
