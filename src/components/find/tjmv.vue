@@ -3,10 +3,12 @@
             <p class ='tit'>Mv排行</p>
             <div class="content">
               
-<ul>
-  <li  class="img" v-for ='item in mvl' :key = 'item.id'>
-            <img :src="item.cover" alt="">
-    <span class ='fonts fa fa-play-circle-o'></span>
+<ul id ='ul'>
+  <li  class="li img" v-for ='item in mvl' :key = 'item.id'>
+            <div class="img" id ='img'>
+                <img :src="item.cover" >
+            </div>
+    <span class ='fonts fa fa-play-circle-o' @click ='playmv(item)'></span>
     <div class="bottom">
         <div class="left">
             <span>{{item.name}}</span>
@@ -23,6 +25,7 @@
 </template>
 
 <script>
+import {mapMutations} from 'vuex'
 export default {
     data(){
         return {
@@ -42,6 +45,10 @@ export default {
                 this.mvl = res.data.data
             })
         },
+        playmv(item){
+            this.setmv(item)
+            this.$router.push('/mv')
+        },
         jiezhe(e){
             e.target.innerHTML = '加载更多数据中...'
             this.page++
@@ -58,7 +65,10 @@ export default {
             }).catch(()=>{
                 e.target.innerHTML = '没有更多数据了...'
             })
-        }
+        },
+        ...mapMutations({
+            setmv : 'SET_MV'
+        })
     },
     created(){
         this.getmvtop()

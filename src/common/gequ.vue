@@ -1,5 +1,5 @@
 <template>
-    <div class ='gequlistContainer'>
+    <div class ='gequlistContainers'>
                 <div class="contents" ref ='cont'>
                     <div class="lists">
                         <ul>
@@ -73,12 +73,10 @@ export default {
 .red{
     color:#31c27c !important;
 }
-    .gequlistContainer{
+    .gequlistContainers{
         width: 100%;
-        height:100%;
             .contents{
                 width: 100%;
-                height:100%;
                 .lists{
                     background-color: #eee;
                     ul{

@@ -5,7 +5,7 @@ import toplist from '../components/find/component/toplist'
 import toplistinfo from '../components/find/component/toplistinfo'
 import mrtj from '../components/find/component/mrtj/mrtj.vue'
 import search from '../components/search/search'
-import plear from '../components/plear/plear.vue'
+import mv from '../components/mv/mv'
 vue.use(Router)
 const router =  new Router ({
         routes:[
@@ -30,8 +30,8 @@ const router =  new Router ({
                 component:search
             },
             {
-                path:'/plear',
-                components:plear
+                path:'/mv',
+                component:mv
             }
         ]
 })

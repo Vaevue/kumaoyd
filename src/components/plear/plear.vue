@@ -56,7 +56,7 @@
             </div>
             
         </div>
-        <audio :src="currentSong.url" ref ='audio' @play ='ready' autoplay   @timeupdate="upd" @ended="end"></audio>
+        <audio :src="currentSong.url" ref ='audio' @play ='ready' autoplay   @timeupdate="upd" @ended="end" @error ='error'></audio>
     </div>
     
     </transition>
@@ -134,6 +134,9 @@ export default {
             }else {
                 this.next()
             }
+        },
+        error(){
+            this.next()
         },
         prev(){
             

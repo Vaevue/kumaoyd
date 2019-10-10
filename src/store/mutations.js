@@ -17,6 +17,9 @@ const mutations = {
     },
     [types.SET_SJ_PLAYLLIST](state,lists){
         state.sjplaylist = lists
+    },
+    [types.SET_MV](state,mv){
+        state.mv = mv
     }
 }
 

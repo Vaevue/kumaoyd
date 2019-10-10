@@ -4,7 +4,8 @@
     playlist : [],
     current:0,
     mode:2,
-    sjplaylist: []
+    sjplaylist: [],
+    mv : []
 }
 
 export default state

@@ -9,3 +9,5 @@ export const SET_CURRENT = 'SET_CURRENT'
 export const SET_MODE = 'SET_MODE'
 
 export const SET_SJ_PLAYLLIST  = 'SET_SJ_PLAYLIST'
+
+export const SET_MV = 'SET_MV'

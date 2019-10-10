@@ -11,3 +11,5 @@ export const currentSong = (state) => state.playlist[state.current] || {}
 export const mode = state => state.mode
 
 export const sjplaylist = state => state.playlist
+
+export const mv =  state => state.mv

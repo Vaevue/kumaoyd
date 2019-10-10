@@ -5,7 +5,7 @@
                 <span class ='fa fa-arrow-left'></span>
             </div>
             <div class="input">
-                <input type="text" v-model="keyword">
+                <input type="text" v-model="keyword" :placeholder="placeholder">
             </div>
             <div class="user">
                 <span class ='fa fa-user-circle'></span>
@@ -23,7 +23,7 @@
                 </li>
             </ul>
         </div>
-        <v-searchinfo v-if ='flag' :infos ='infos'></v-searchinfo>
+        <v-searchinfo v-if ='flag' :infos ='infos' :searchWord ='searchWord'></v-searchinfo>
         <div class="hottop" v-show ='!flag'>
                 <h6>热搜榜</h6>
              <ul>
@@ -55,7 +55,8 @@ export default {
             list:[],
             searchWord:'',
             types:1018,
-            infos:[]
+            infos:[],
+            placeholder:''
         }
     },
     methods:{
@@ -92,10 +93,16 @@ export default {
         },
         keywords(it){
             console.log(it.searchWord)
+        },
+        getmoren(){
+            this.$ajax.get('http://140.143.128.100:3000/search/default').then((res)=>{
+               this.placeholder =  res.data.data.showKeyword
+            })
         }
     },
     created(){
         this.gethotsearch()
+        this.getmoren()
     },
     mounted(){
         document.getElementsByTagName('input')[0].addEventListener('keyup',()=>{
@@ -127,7 +134,7 @@ export default {
         background-color: #eee;
         .topsearch{
             display:flex;
-            width: 106%;
+            width: 100%;
             height: 40px;
             align-items: center;
             background:#eee;
@@ -155,7 +162,7 @@ export default {
             .user{
                 width: 20px;
                 text-align:center;
-                margin-right: 40px;
+                margin-right: 10px;
             }
         }
         .searchbox{
