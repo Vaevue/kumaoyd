@@ -2,7 +2,7 @@
     <div class ='mvContainer'>
         <video :src="mvurl" autoplay controls></video>
         <div class="top">
-            <p>{{da.name}}</p>
+            <p @click ='iii'>{{da.name}}</p>
             <span class ='fa fa-caret-down' @click ='sho'></span>
         </div>
         <div class="biaoqian">
@@ -36,28 +36,27 @@
                     <p>{{da.shareCount}}</p>
                 </li>
             </ul>
-            <div class="user">
-                <div class="tx">
-                    <img src="" alt="">
-                </div>
-                <div class="gz">
-
-                </div>
-            </div>
+        </div>
+        <div class="pl">
+            <v-pl :hotcomments ='hotcomments'></v-pl>
         </div>
     </div>
 </template>
 
 <script>
-import {mapGetters} from 'vuex'
+import {mapGetters,mapMutations} from 'vuex'
+import vPl from '../../common/pinglun.vue'
 export default {
     computed:{
         ...mapGetters(['mv'])
     },
+    components:{vPl},
     data(){
         return {
             mvurl : '',
-            da: []
+            da: [],
+            xglist :[],
+            hotcomments:[]
         }
     },
     methods: {
@@ -69,6 +68,10 @@ export default {
                 ul.classList.add('o')
             }
         },
+        iii(){
+            console.log(this.da)
+            this.getxgvideo()
+        },
         getmvurl(){
             this.$ajax.get('http://140.143.128.100:3000/mv/detail',{
                 params:{
@@ -78,6 +81,27 @@ export default {
               this.mvurl =   res.data.data.brs[1080]
               this.da =  res.data.data
               console.log(this.da)
+              this.getxgvideo()
+            })
+        },
+        getpl(){
+            this.$ajax.get('http://140.143.128.100:3000/comment/mv',{
+                params:{
+                    id : this.mv.id
+                }
+            }).then((res) => {
+                console.log(res.data.hotComments)
+                this.hotcomments = res.data.hotComments
+                console.log(res.data.comments)
+            })
+        },
+        getxgvideo(){
+            this.$ajax.get('http://140.143.128.100:3000/related/allvideo',{
+                params:{
+                    id:this.da.id
+                }
+            }).then((res) => {
+                this.xglist = res.data.data
             })
         },
         shijian(time){
@@ -88,21 +112,28 @@ export default {
                 return time
             }
         },
+        ...mapMutations({
+            setmv :　'SET_MV'
+        })
     },
     created(){
         this.getmvurl()
+        this.getpl()
     }
 }
 </script>
 
 <style lang="less" scoped>
+.pl{
+    margin-top:30px;
+}
 .o {
     overflow:hidden;
      height: 30px;
      transition:all .3s linear;
 }
     .mvContainer{
-        position:fixed;
+        position:absolute;
         top:0;
         left:0;
         right:0;
@@ -158,6 +189,7 @@ export default {
                     }
                 }
             }
+
         }
     }
 </style>
