@@ -5,7 +5,8 @@
     current:0,
     mode:2,
     sjplaylist: [],
-    mv : []
+    mv : [],
+    singer: []
 }
 
 export default state

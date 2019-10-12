@@ -38,7 +38,7 @@
             </ul>
         </div>
         <div class="pl">
-            <v-pl :hotcomments ='hotcomments'></v-pl>
+            <v-pl :hotcomments ='hotcomments' :comments="comments" @loadgd ='load' :text ='text'></v-pl>
         </div>
     </div>
 </template>
@@ -56,7 +56,10 @@ export default {
             mvurl : '',
             da: [],
             xglist :[],
-            hotcomments:[]
+            hotcomments:[],
+            comments:[],
+            page : 1,
+            text:'查看更多'
         }
     },
     methods: {
@@ -67,6 +70,23 @@ export default {
             }else {
                 ul.classList.add('o')
             }
+        },
+        load(){
+            this.text = '拼命加载中...'
+            this.page++
+        this.$ajax.get('http://140.143.128.100:3000/comment/mv',{
+                params:{
+                    id : this.mv.id,
+                    limit:20,
+                    offset: this.page * 20
+                }
+            }).then((res) => {
+              let arr  =  res.data.comments
+              for(let i =0;i<arr.length;i++){
+                  this.comments.push(arr[i])
+              }
+            this.text = '查看更多'
+            })
         },
         iii(){
             console.log(this.da)
@@ -92,7 +112,7 @@ export default {
             }).then((res) => {
                 console.log(res.data.hotComments)
                 this.hotcomments = res.data.hotComments
-                console.log(res.data.comments)
+                this.comments = res.data.comments
             })
         },
         getxgvideo(){
@@ -141,12 +161,15 @@ export default {
         background-color: #fff;
         video{
             width: 100%;
-            height: 224px;
+            height: 210px;
+            position: fixed;
+            top:0px;
         }
         .top{
             padding: 0 20px;
             display:flex;
             justify-content: space-between;
+            margin-top:225px;
             span{
                 color:#999;
                 font-size:23px;

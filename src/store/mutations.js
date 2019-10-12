@@ -20,6 +20,9 @@ const mutations = {
     },
     [types.SET_MV](state,mv){
         state.mv = mv
+    },
+    [types.SET_SINGER](state,singer){
+        state.singer = singer
     }
 }
 

@@ -381,8 +381,8 @@ export default {
                 .cd {
                     .bg {
                         img {
-                            height: 300px;
-                            width: 300px;
+                            height: 240px;
+                            width: 240px;
                             border-radius: 50%;
                             margin: 50px auto;
                             display: block;

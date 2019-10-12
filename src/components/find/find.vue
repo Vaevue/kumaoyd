@@ -26,12 +26,12 @@
                     <p>排行榜</p>
                 </router-link>
 
-                 <li>
+                 <router-link to ='/singer' tag = 'li'>
                     <p>
-                        <span class = 'fa fa-tv'></span>
+                        <span class = 'fa fa-user-o'></span>
                     </p>
-                    <p>视频</p>
-                </li>
+                    <p>歌手榜</p>
+                </router-link>
 
                  <li>
                     <p>

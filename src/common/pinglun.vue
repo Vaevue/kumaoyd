@@ -1,7 +1,8 @@
 <template>
 	<div class="pinlunContainer">
 		<!-- 热门评论 -->
-		<div class="hotcomments">
+		<v-loading v-show ='hotcomments.length == 0'></v-loading>
+		<div class="hotcomments" v-show ='hotcomments.length!=0'>
 			<p>精彩评论</p>
 			<ul>
 				<li v-for ='item in hotcomments' :key ='item.time'>
@@ -12,7 +13,8 @@
 							<p class="time">{{da(item.time)}}</p>
 						</div>
 						<div class="zan">
-							666
+							<span class ='z fa fa-thumbs-o-up'></span>
+							{{item.likedCount}}
 						</div>
 					</div>
 					<div class="content">
@@ -21,12 +23,46 @@
 				</li>
 			</ul>
 		</div>
+		<!-- 最新评论 -->
+		<div class="hotcomments" v-show ='comments.length!=0'>
+			<p>最新评论</p>
+			<ul>
+				<li v-for ='item in comments' :key ='item.time'>
+					<div class="top">
+						<div class="name">
+						<img v-lazy="item.user.avatarUrl" alt="">
+							<p class="username">{{item.user.nickname}}</p>
+							<p class="time">{{da(item.time)}}</p>
+						</div>
+						<div class="zan" :class ='item.liked ? "red" : ""'>
+							<span class ='z fa fa-thumbs-o-up'></span>
+							{{item.likedCount}}
+						</div>
+					</div>
+					<div class="content">
+
+						<p>{{item.content}}</p>
+					</div>
+				</li>
+				<p class ='ckgd' @click ='loadgd'>{{text}}</p>
+			</ul>
+		</div>
+		<div>
+
+		</div>
 	</div>
 </template>
 
 <script>
+import vLoading from './loading'
 	export default {
-		props:['hotcomments'],
+		props:['hotcomments','comments','text'],
+		components:{vLoading},
+		data(){
+			return {
+				
+			}
+		},
 		methods:{
 			da(value){
 					let date = new Date(value);
@@ -42,12 +78,25 @@
                     let s = date.getSeconds();// 秒
                     s = s < 10 ? ('0' + s) : s;
                     return y + '-' + MM + '-' + d + ' ' + h + ':' + m + ':' + s;
-			}
+			},
+			loadgd(e){
+				this.$emit('loadgd')
+			},
+
 		}
+	
 	}
 </script>
 
 <style lang ='less' scoped>
+.red{
+	color:red;
+}
+.ckgd{
+	    line-height: 30px;
+    margin-bottom: 10px;
+    text-align: center;
+}
 	.pinlunContainer{
 		padding:  0 20px;
 		background-color: #fff;

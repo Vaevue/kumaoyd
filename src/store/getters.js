@@ -13,3 +13,5 @@ export const mode = state => state.mode
 export const sjplaylist = state => state.playlist
 
 export const mv =  state => state.mv
+
+export const singer = state => state.singer

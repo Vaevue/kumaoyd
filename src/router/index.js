@@ -6,6 +6,8 @@ import toplistinfo from '../components/find/component/toplistinfo'
 import mrtj from '../components/find/component/mrtj/mrtj.vue'
 import search from '../components/search/search'
 import mv from '../components/mv/mv'
+import singer from '../components/singer/singer.vue'
+import singerinfo from '../components/singer/singerinfo.vue'
 vue.use(Router)
 const router =  new Router ({
         routes:[
@@ -32,6 +34,16 @@ const router =  new Router ({
             {
                 path:'/mv',
                 component:mv
+            },
+            {
+                path:'/singer',
+                component:singer,
+                children:[
+                   {
+                    path:':id',
+                    component:singerinfo
+                   }
+                ]
             }
         ]
 })
