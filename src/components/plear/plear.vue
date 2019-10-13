@@ -452,6 +452,7 @@ export default {
                     position:fixed;
                     bottom:20px;
                     right:50px;
+                    z-index: 9999999999999999999;
                     img{
                         height: 70px;
                         width: 70px;
@@ -466,18 +467,17 @@ export default {
                             color:#31c27c;
                             font-size:20px;
                         }
-                   .next {
-                                   
-                    left: 39px;
-                    top: -26px;
+                   .next {             
+                    left: 84px;
+                    top: 19px;
                     }
                     .pl{
-                        left: -2px;
-                        top: -23px;
+                        left: 30px;
+                        top: 20px;
                     }
                     .prev{
                     left:-26px;   
-                    top:-3px;
+                    top:21px;
                     }
                     }
                    

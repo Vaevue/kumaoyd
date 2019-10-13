@@ -37,13 +37,11 @@ const router =  new Router ({
             },
             {
                 path:'/singer',
-                component:singer,
-                children:[
-                   {
-                    path:':id',
-                    component:singerinfo
-                   }
-                ]
+                component:singer
+            },
+            {
+                path:'/singerinfo',
+                component:singerinfo
             }
         ]
 })

@@ -1,6 +1,5 @@
 <template>
     <div class ='singerContainer'>
-        <v-scroll :data ='singerlist'>
         <div class="wrapper">
             <ul>
             <li v-for ='list in singerlist' :key ='list.id' @click ='gosingerinfo(list)'>
@@ -9,7 +8,6 @@
             </li>
         </ul>
         </div>
-        </v-scroll>
         <router-view></router-view>
     </div>
 </template>
@@ -24,7 +22,7 @@ export default {
        gosingerinfo(list){
         this.setsinger(list)
            this.$router.push({
-               path:`/singer/${list.id}`
+               path:`/singerinfo`
            })
        },
        ...mapMutations({

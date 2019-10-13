@@ -54,7 +54,6 @@ export default {
               list : this.lis,
               index : index
           })
-          this.$router.push('/plear')
           console.log(this.currentSong)
           
        },
@@ -78,7 +77,6 @@ export default {
             .contents{
                 width: 100%;
                 .lists{
-                    background-color: #eee;
                     ul{
                         li{
                             display:flex;
