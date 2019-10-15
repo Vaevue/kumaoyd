@@ -6,7 +6,8 @@
     mode:2,
     sjplaylist: [],
     mv : [],
-    singer: []
+    singer: [],
+    album : []
 }
 
 export default state

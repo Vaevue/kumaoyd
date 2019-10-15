@@ -41,15 +41,17 @@
                 <ul ref ='gq' id ='uls'>
                     <li class ='active' data-id ='1'>主页</li>
                     <li data-id ='2'>歌曲</li>
-                    <li data-id ='3'>专辑<small>31</small></li>
-                    <li data-id ='4'>视频</li>
-                    <li data-id ='5'>动态</li>
+                    <li data-id ='3'>专辑</li>
+                    <li data-id ='4'>MV</li>
                 </ul>
-                <div class="ref" ref='list'>
-                    <v-gequ :list = 'guqulist'></v-gequ>
-                </div>
+               
             </div>
         </div>
+        <!-- 主页 -->
+            <div class="zhuye" v-show ='dataid == 1'>
+                         <div class="ref" ref='list'>
+                    <v-gequ :list = 'guqulist'></v-gequ>
+                </div>
         <div class="xinxi">
             <p>基本信息</p>
             <ul>
@@ -79,6 +81,19 @@
                 </ul>
             </div>
         </div>
+            </div>
+        <!-- 单曲 -->
+        <div class="danqu" v-show ='dataid == 2' style="background:#fff;">
+            <v-gequ :list ='hotSOng'></v-gequ>
+        </div>
+        <!-- 专辑 -->
+        <div class="zhuan" v-show ='dataid == 3' style="background:#fff;">
+                <v-zhuanji :album ='album'></v-zhuanji>
+        </div>
+        <!-- MV -->
+        <div class="shipin" v-show ='dataid ==4 ' style="background:#fff;">
+            <v-shipin :videos = 'mvs'></v-shipin>
+        </div>
         </div>
     </div>
 </template>
@@ -86,15 +101,22 @@
 <script>
 import {mapGetters} from 'vuex'
 import vGequ from '../../common/gequ'
+import vZhuanji from '../search/comp/zhuanji'
+import vShipin from '../search/comp/shipin'
+import vDongtai from './dongtai'
 export default {
-    components:{vGequ},
+    components:{vGequ,vZhuanji,vShipin,vDongtai},
     data(){
         return {
             guqulist : [],
             dj:[],
             miaoshu : [],
             gedan:[],
-            scrolltop: 0 
+            scrolltop: 0,
+            dataid : 1,
+            hotSOng : [],
+            album:[],
+            mvs:[]
         }
     },
     computed: {
@@ -156,10 +178,36 @@ export default {
                 let that =this
                 for(let i =0;i<li.length;i++){
                     li[i].addEventListener('click',function(){
-                        console.log(this)
+                        that.dataid = this.getAttribute('data-id')
                         for(let j =0;j<li.length;j++){
                             console.log(111)
                             li[j].classList.remove('active')
+                        }
+                        if(that.dataid == 2){
+                            that.$ajax.get('http://140.143.128.100:3000/artists',{
+                                params:{
+                                    id:that.singer.id
+                                }
+                            }).then((res) => {
+                                that.hotSOng = res.data.hotSongs
+                            })
+                        }else if (that.dataid == 3){
+                            that.$ajax.get('http://140.143.128.100:3000/artist/album',{
+                                params:{
+                                    limit:30,
+                                    id:that.singer.id
+                                }
+                            }).then((res) => {
+                              that.album =   res.data.hotAlbums
+                            })
+                        }else if (that.dataid == 4){
+                            that.$ajax.get('http://140.143.128.100:3000/artist/mv',{
+                                params:{
+                                    id: that.singer.id
+                                }
+                            }).then((res) => {
+                                that.mvs = res.data.mvs
+                            })
                         }
                         this.classList.add('active')
                     })
@@ -179,8 +227,8 @@ var scroll = document.documentElement.scrollTop || document.body.scrollTop;
     if(scroll >= 249){
         this.$refs.ttt.style.display = 'block'
         this.$refs.top.style.color = '#000'
+        this.$refs.top.style.transition = 'all .5s ease'
         this.$refs.top.style.background = '#fff'
-         this.$refs.top.style.transition = 'all .5s ease'
     }else {
     }
     if(scroll <= 10){
@@ -191,8 +239,10 @@ this.$refs.top.style.background = 'transparent'
     }
     if(scroll >= 266){
         this.$refs.gq.style.position = 'fixed'
+        this.$refs.gq.style.zIndex ='99'
         this.$refs.gq.style.top = '60px'
         this.$refs.list.style.marginTop ='35px'
+        
     }else {
          this.$refs.gq.style.position = 'static'
         this.$refs.gq.style.top = '0'
@@ -205,7 +255,7 @@ this.$refs.top.style.background = 'transparent'
 
 <style lang="less" scoped>
 .jj{
-        display: -webkit-box;
+    display: -webkit-box;
     -webkit-line-clamp: 3;
     overflow: hidden;
     -webkit-box-orient: vertical;

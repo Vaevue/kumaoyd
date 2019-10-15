@@ -2,7 +2,7 @@
     <div class ='zhuanjiContainer'>
             <ul>
                 <v-loading v-show ='album.length == 0'></v-loading>
-                <li v-for ='item in album' :key ='item.id'>
+                <li v-for ='item in album' :key ='item.id' @click ='goalbuminfo(item)'>
                     <div class="img">
                         <img v-lazy="item.picUrl" alt="">
                     </div>
@@ -17,11 +17,18 @@
 
 <script>
 import vLoading from '../../../common/loading'
+import {mapMutations} from 'vuex'
 export default {
     props : ['album'],
     components:{vLoading},
     methods : {
-       
+       goalbuminfo(item){
+           this.setalbum(item)
+           this.$router.push('/album')
+       },
+       ...mapMutations({
+           setalbum : 'SET_ALBUM'
+       })
     }
 }
 </script>

@@ -15,3 +15,5 @@ export const sjplaylist = state => state.playlist
 export const mv =  state => state.mv
 
 export const singer = state => state.singer
+
+export const album = state => state.album

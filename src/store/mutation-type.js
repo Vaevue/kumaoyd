@@ -13,3 +13,5 @@ export const SET_SJ_PLAYLLIST  = 'SET_SJ_PLAYLIST'
 export const SET_MV = 'SET_MV'
 
 export const SET_SINGER = 'SET_SINGER'
+
+export const SET_ALBUM = 'SET_ALBUM'

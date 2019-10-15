@@ -2,7 +2,7 @@
     <div class ='shipinlistContainer'>
             <ul>
                 <v-loading v-show="video.length == 0"></v-loading>
-                <li v-for ='item in video' :key ='item.id'>
+                <li v-for ='item in video' :key ='item.id' @click ='gomv(item)'>
                     <div class="img">
                         <img v-lazy="item.imgurl" alt="">
                     </div>
@@ -17,6 +17,7 @@
 
 <script>
 import vLoading from './loading'
+import {mapMutations} from 'vuex'
 export default {
     components:{vLoading},
     props:['video'],
@@ -26,6 +27,13 @@ export default {
         }
     },
     methods: {
+        gomv(item){
+            this.setmv(item)
+            this.$router.push('/mv')
+        },
+        ...mapMutations({
+            setmv : 'SET_MV'
+        })
     },
 }
 </script>

@@ -2,6 +2,7 @@
     <div class ='gequlistContainers'>
                 <div class="contents" ref ='cont'>
                     <div class="lists">
+                        <v-loading v-show ='list.length ==0'></v-loading>
                         <ul>
                             <li :class ='current == index ? "red" : ""' @click ='gogogo(item,index)' v-for ='(item,index) in list' :key ='item.id'>
                                    <div class="name">
@@ -22,7 +23,9 @@
 <script>
 import {createSong} from './js/Song'
 import {mapActions,mapGetters,mapMutations} from 'vuex'
+import vLoading from './loading'
 export default {
+    components:{vLoading},
     props:{
         list:{
             type:Array,

@@ -8,6 +8,7 @@ import search from '../components/search/search'
 import mv from '../components/mv/mv'
 import singer from '../components/singer/singer.vue'
 import singerinfo from '../components/singer/singerinfo.vue'
+import album from '../common/album'
 vue.use(Router)
 const router =  new Router ({
         routes:[
@@ -42,6 +43,10 @@ const router =  new Router ({
             {
                 path:'/singerinfo',
                 component:singerinfo
+            },
+            {
+                path:'/album',
+                component:album
             }
         ]
 })

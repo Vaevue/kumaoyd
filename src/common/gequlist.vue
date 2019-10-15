@@ -1,6 +1,12 @@
 <template>
     <div class ='gequlistContainer'>
-          <div class="to" id ='tonav' v-show ='flag'>
+
+        <v-scroll ref= 'wwww' :data ='list' @scroll ='scroll'>
+            
+            <div class="wrappers" ref ='wrp'>
+                <div class="contents" ref ='cont'>
+                              <div class="to" id ='tonav' v-show ='flag'>
+              
                         <div class ='vleft'>
                             <span class ='play fa fa-play-circle-o'></span>
                             <span>播放全部 <small>(共{{list.length}}首歌)</small></span>
@@ -10,11 +16,8 @@
                             收藏(23.3万)
                         </div>
                     </div>
-        <v-scroll ref= 'wwww' :data ='list' @scroll ='scroll'>
-            
-            <div class="wrappers" ref ='wrp'>
-                <div class="contents" ref ='cont'>
                     <div class="lists">
+                         <v-loading v-show ='list.length ==0'></v-loading>
                         <ul>
                             <li :class ='current == index ? "red" : ""' @click ='gogogo(item,index)' v-for ='(item,index) in list' :key ='item.id'>
                                    <div class="name">
@@ -38,6 +41,7 @@
 import vScroll from './scroll'
 import {createSong} from './js/Song'
 import {mapActions,mapGetters,mapMutations} from 'vuex'
+import vLoading from './loading'
 import vPlear from '../components/plear/plear.vue'
 export default {
     props:{
@@ -56,7 +60,7 @@ export default {
          lis:[],
         }
     },
-    components:{vScroll,vPlear},
+    components:{vScroll,vPlear,vLoading},
    methods: {
        gogogo(item,index){
            console.log(item)
