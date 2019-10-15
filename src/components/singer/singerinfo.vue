@@ -1,7 +1,7 @@
 <template>
     <div class ='singerinfoContainer' >
         <div class="ss"  ref ='bg'>
-            <div class="bg" :style ='background' @click ='ss'>
+            <div class="bg" :style ='background'>
             <div class="top" ref ='top' >
                 <div class="d">
                     <span class="bk fa fa-arrow-left" @click ='back'></span>
@@ -38,18 +38,20 @@
         </div>
         <div class="content">
             <div class="nav">
-                <ul ref ='gq'>
-                    <li class ='active'>主页</li>
-                    <li>歌曲</li>
-                    <li>专辑<small>31</small></li>
-                    <li>视频</li>
-                    <li>动态</li>
+                <ul ref ='gq' id ='uls'>
+                    <li class ='active' data-id ='1'>主页</li>
+                    <li data-id ='2'>歌曲</li>
+                    <li data-id ='3'>专辑<small>31</small></li>
+                    <li data-id ='4'>视频</li>
+                    <li data-id ='5'>动态</li>
                 </ul>
-                <v-gequ :list = 'guqulist'></v-gequ>
+                <div class="ref" ref='list'>
+                    <v-gequ :list = 'guqulist'></v-gequ>
+                </div>
             </div>
         </div>
         <div class="xinxi">
-            <p @click ='ss'>基本信息</p>
+            <p>基本信息</p>
             <ul>
                 <li>昵称: {{singer.name}}</li>
                 <li class ='jj'>简介: {{miaoshu.briefDesc}}</li>
@@ -102,9 +104,6 @@ export default {
         }
     },
     methods: {
-        ss(){
-            console.log(this.singer)
-        },
         getdanqu(){
             this.$ajax.get('http://140.143.128.100:3000/artists',{
                 params:{
@@ -150,8 +149,21 @@ export default {
         back(){
             this.$router.back()
         },
-        scrollcaozuos(e){
-                console.log(111)
+
+        xianshi(){
+                let ul = document.getElementById('uls')
+                let li = ul.children
+                let that =this
+                for(let i =0;i<li.length;i++){
+                    li[i].addEventListener('click',function(){
+                        console.log(this)
+                        for(let j =0;j<li.length;j++){
+                            console.log(111)
+                            li[j].classList.remove('active')
+                        }
+                        this.classList.add('active')
+                    })
+                }
         },
     },
     created(){
@@ -161,34 +173,33 @@ export default {
         this.getusergedan()
     },
     mounted(){
+        this.xianshi()
 window.onscroll =  ()=> {
 var scroll = document.documentElement.scrollTop || document.body.scrollTop;
-    if(scroll >= 300){
+    if(scroll >= 249){
         this.$refs.ttt.style.display = 'block'
         this.$refs.top.style.color = '#000'
         this.$refs.top.style.background = '#fff'
+         this.$refs.top.style.transition = 'all .5s ease'
     }else {
-    
     }
     if(scroll <= 10){
 this.$refs.top.style.background = 'transparent'
  this.$refs.top.style.color = '#999'
    this.$refs.ttt.style.display = 'none'
+   this.$refs.top.style.transition = 'all .5s ease'
     }
-    if(scroll >= 330){
+    if(scroll >= 266){
         this.$refs.gq.style.position = 'fixed'
         this.$refs.gq.style.top = '60px'
+        this.$refs.list.style.marginTop ='35px'
     }else {
          this.$refs.gq.style.position = 'static'
         this.$refs.gq.style.top = '0'
+        this.$refs.list.style.marginTop = '0'
     }
 }
            },
-    watch: {
-        scrolltop(sy){
-            console.log(sy)
-        }
-    }
 }
 </script>
 
@@ -293,14 +304,13 @@ this.$refs.top.style.background = 'transparent'
 
              }
              .bottom{
-                     height: 80px;
+                     height: 60px;
                      position:absolute;
-                     bottom: -20px;
+                     bottom: 0px;
                      background-color: #fff;
                      opacity:.5;
                      width: 100%;
                      display:flex;
-                     border-radius: 15px;
                      span{
                          padding-top: 20px;
                          color:rgb(255,68,68);
