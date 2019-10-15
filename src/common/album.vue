@@ -4,22 +4,22 @@
            <div class="bg"></div>
       </div>
         <div class="nn">
-            <div class="top">
-            <div class="let">
-                <span class = 'fa fa-arrow-left'></span>
-                专辑
+            <div class="top" ref ='tops'>
+            <div class="let" style ='display:flex;'>
+                <span class = 'fa fa-arrow-left' @click ='fanhui'></span>
+                <span ref ='ttts'>专辑</span>
             </div>
             <span class ='fa fa-share-alt'></span>
         </div>
         <div class="cd">
-            <img src="https://p2.music.126.net/BUFZLieG5a6E3ZVpkHP6fA==/109951163402069754.jpg">
+            <img :src="album.list.picUrl">
             <div class="right">
                    <div class="rtop">
-                     <p>寻宝游戏</p>
-                    <p>许嵩</p>
+                     <p>{{album.list.name}}</p>
+                    <p>{{album.list.artists[0].name}}</p>
                    </div>
                    <div class="rbottom">
-                       <p>发行时间:2019-5-5</p>
+                       <p>发行时间:{{time(album.list.publishTime)}}</p>
                        <p>2018年许嵩发表最新专辑寻宝游戏</p>
                    </div>
                     
@@ -37,40 +37,99 @@
             </li>
         </ul>
         </div>
+        <div class="gequ">
+            <div class="lis" ref ='gqs'>
+                <div class="left" > <span class ='fa fa-play-circle'></span> 播放全部</div>
+            </div>
+            <div class="l" ref ='lists'>
+                <v-gequ  :list ='songs'></v-gequ>
+            </div>
+        </div>
     </div>
 </template>
 
 <script>
 import {mapGetters} from 'vuex'
+import vGequ from './gequ'
 export default {
+    props:['songs'],
+    components:{vGequ},
     computed: {
         ...mapGetters(['album'])
     },
     data(){
         return {
-            album:[]
+            albums:[]
         }
     },
     methods: {
-        getlist(){
-            console.log(this.album)
-            this.$ajax.get('http://140.143.128.100:3000/album',{
-                params:{
-                    id : this.album.id
-                }
-            }).then((res) => {
-                console.log(res.data)
-                
-            })
+        time(value){
+            let date = new Date(value);
+                    let y = date.getFullYear();// 年
+                    let MM = date.getMonth() + 1;// 月
+                    MM = MM < 10 ? ('0' + MM) : MM;
+                    let d = date.getDate();// 日
+                    d = d < 10 ? ('0' + d) : d;
+                    return y + '-' + MM + '-' + d 
         },
+    fanhui(){
+        this.$emit('fff')
+        console.log(111)
+    }
     },
     created(){
         this.getlist()
+    },
+    mounted(){
+        window.onscroll =  ()=> {
+var scroll = document.documentElement.scrollTop || document.body.scrollTop;
+    if(scroll >= 188){
+        this.$refs.ttt.style.display = 'block'
+        this.$refs.top.style.color = '#000'
+        this.$refs.top.style.transition = 'all .5s ease'
+        this.$refs.top.style.background = '#fff'
+    }else {
     }
+    console.log(scroll)
+    if(scroll <= 10){
+this.$refs.tops.style.background = 'transparent'
+ this.$refs.tops.style.color = '#999'
+   this.$refs.tops.style.transition = 'all .5s ease'
+    }
+    if(scroll >= 188){
+        this.$refs.gqs.style.position = 'fixed'
+        this.$refs.gqs.style.zIndex ='99'
+        this.$refs.gqs.style.top = '30px'
+        this.$refs.lists.style.marginTop ='35px'
+        console.log()
+         this.$refs.ttts.innerTEXT =`${this.album.list.name}`
+    }else {
+         this.$refs.gqs.style.position = 'static'
+        this.$refs.gqs.style.top = '0'
+        this.$refs.lists.style.marginTop = '0'
+        this.$refs.ttts.style.innerTEXT ='专辑'
+    }
+}
+    },
 }
 </script>
 
 <style lang="less" scoped>
+.gequ{
+    margin-top: 220px;
+    background-color: #fff;
+    
+    .lis{
+    height: 50px;
+    line-height: 50px;
+    padding-left: 17px;
+    color: #000;
+    background: #fff;
+    border-radius: 15px;
+    color: #31c27c;
+    width: 100%;
+    }
+}
     .albumContainer{
         background:#fff;
         position:absolute;
@@ -78,6 +137,7 @@ export default {
         left:0;
         right:0;
         bottom:0;
+        z-index: 99999;
         .nn{
             position:absolute;
             width: 100%;
@@ -101,6 +161,9 @@ export default {
             justify-content: space-between;
             align-items:center;
             padding: 0 20px;
+            position: fixed;
+    width: 100%;
+    box-sizing: border-box;
         }
         .cd{
             display:flex;
@@ -109,7 +172,7 @@ export default {
             margin-bottom:10px;
             color:#aaa;
             img{
-                width: 100px;
+                min-width: 100px;
                 height: 100px;
                 display:block;
             }

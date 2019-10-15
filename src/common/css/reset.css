@@ -5,6 +5,7 @@ html,body,h1,h2,h3,h4,h5,h6,p,ul,li,input,button,dt,dl,dd,ol,p {
 html,body{
     font-family: '微软雅黑';
     background: #eee;
+    overflow-x:hidden;
 }
 input,button {
     outline-style: none;

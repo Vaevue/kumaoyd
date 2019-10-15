@@ -1,6 +1,6 @@
 <template>
     <div class ='zhuanjiContainer'>
-            <ul>
+            <ul v-show ='flag == false'>
                 <v-loading v-show ='album.length == 0'></v-loading>
                 <li v-for ='item in album' :key ='item.id' @click ='goalbuminfo(item)'>
                     <div class="img">
@@ -12,20 +12,40 @@
                     </div>
                 </li>
             </ul>
+            <v-info v-show ='flag == true' @fff ='ffff' :songs ='songs'></v-info>
     </div>
 </template>
 
 <script>
 import vLoading from '../../../common/loading'
+import vInfo from '../../../common/album'
 import {mapMutations} from 'vuex'
 export default {
     props : ['album'],
-    components:{vLoading},
+    components:{vLoading,vInfo},
+    data(){
+        return {
+            flag:false,
+            songs:[]
+        }
+    },
     methods : {
        goalbuminfo(item){
-           this.setalbum(item)
-           this.$router.push('/album')
+           this.setalbum({
+               list:item
+           })
+      this.$ajax.get('http://140.143.128.100:3000/album',{
+            params:{
+                 id : item.id
+             }
+         }).then((res) => {
+              this.songs =  res.data.songs 
+            })
+        this.flag = true
        },
+    ffff(){
+      this.flag = false  
+    },
        ...mapMutations({
            setalbum : 'SET_ALBUM'
        })
