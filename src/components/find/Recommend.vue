@@ -6,7 +6,7 @@
        </div>
        <div class="content">
            <ul>
-               <li v-for ='item in result' :key ='item.id'>
+               <li v-for ='item in result' :key ='item.id' @click ='goalbum(item)'>
                    <div class="img">
                        <!-- <span class ='tit'>217万</span> -->
                        <img v-lazy="item.picUrl" alt="">
@@ -21,7 +21,7 @@
 </template>
 
 <script>
-
+import {mapMutations} from 'vuex'
 export default {
     props:['title','smalltitle','result'],
     data(){
@@ -30,6 +30,10 @@ export default {
         }
     },
     methods:{
+        goalbum(item){
+            this.setdj(item)
+            this.$router.push('/dj')
+        },
         qiehuan(){
             var that = this
             if(this.$refs.ttt){
@@ -45,7 +49,10 @@ export default {
             }
             }
 
-        }
+        },
+        ...mapMutations({
+            setdj : 'SET_DJ'
+        })
     },
         mounted(){
             this.qiehuan()
@@ -61,7 +68,7 @@ export default {
           display: flex;
           justify-content:space-between;
         .title{
-            font-size: 20px;
+            font-size: 15px;
         }
         .smtitle{
             font-size:13px;

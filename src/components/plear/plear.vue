@@ -56,7 +56,7 @@
             </div>
             
         </div>
-        <audio :src="currentSong.url" ref ='audio' @play ='ready' autoplay   @timeupdate="upd" @ended="end" @error ='error'></audio>
+        <audio :src="currentSong.url" ref ='audio' @play ='ready' autoplay   @timeupdate="upd" @ended="end" @error ='error' ></audio>
     </div>
     
     </transition>
@@ -240,6 +240,7 @@ export default {
         return `${m}:${s}`
       },
       getlyric(){
+          if(this.currentSong.lyric == null) return 
           this.$ajax.get('http://140.143.128.100:3000/lyric',{
               params:{
                   id:this.currentSong.id

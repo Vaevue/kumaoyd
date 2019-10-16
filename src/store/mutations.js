@@ -26,6 +26,9 @@ const mutations = {
     },
     [types.SET_ALBUM](state,list){
         state.album = list
+    },
+    [types.SET_DJ](state,dj){
+        state.dj = dj
     }
 }
 

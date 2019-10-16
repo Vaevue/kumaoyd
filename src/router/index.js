@@ -9,6 +9,8 @@ import mv from '../components/mv/mv'
 import singer from '../components/singer/singer.vue'
 import singerinfo from '../components/singer/singerinfo.vue'
 import album from '../common/album'
+import dj from '../components/DJ/index.vue'
+import djs from '../common/DJ'
 vue.use(Router)
 const router =  new Router ({
         routes:[
@@ -31,6 +33,14 @@ const router =  new Router ({
             {
                 path:'/search',
                 component:search
+            },
+            {
+                path:'/yuncun',
+                component:dj
+            },
+            {
+                path:'/dj',
+                component:djs
             },
             {
                 path:'/mv',

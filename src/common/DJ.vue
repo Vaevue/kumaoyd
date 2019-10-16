@@ -7,20 +7,20 @@
             <div class="top" ref ='tops'>
             <div class="let" style ='display:flex;'>
                 <span class = 'fa fa-arrow-left' @click ='fanhui'></span>
-                <span ref ='ttts'>{{title}}</span>
+                <span ref ='ttts' @click ='tt'>电台</span>
             </div>
             <span class ='fa fa-share-alt'></span>
         </div>
         <div class="cd">
-            <img :src="album.list.picUrl">
+            <img :src="dj.picUrl">
             <div class="right">
                    <div class="rtop">
-                     <p>{{album.list.name}}</p>
-                    <p>{{album.list.artists[0].name}}</p>
+                     <p>{{dj.name}}</p>
+                    <p>{{dj.dj.nickname}}</p>
                    </div>
                    <div class="rbottom">
-                       <p>发行时间:{{time(album.list.publishTime)}}</p>
-                       <p>2018年许嵩发表最新专辑寻宝游戏</p>
+                       <p>创建日期:{{time(dj.createTime)}}</p>
+                       <p>{{dj.rcmdtext}}</p>
                    </div>
                     
             </div>
@@ -42,7 +42,7 @@
                 <div class="left" > <span class ='fa fa-play-circle'></span> 播放全部</div>
             </div>
             <div class="l" ref ='lists'>
-                <v-gequ  :list ='songs'></v-gequ>
+                <v-gequ @fh ='fh'  :list ='songs'></v-gequ>
             </div>
         </div>
     </div>
@@ -50,28 +50,30 @@
 
 <script>
 import {mapGetters} from 'vuex'
-import vGequ from './gequ'
+import {createdj} from '../common/js/Song'
+import vGequ from './djs'
 export default {
-    props:{
-        songs:{
-            type:Array,
-            default : []
-        },
-        title : {
-            type:String,
-            default:'专辑'
-        }
-    },
+
     components:{vGequ},
     computed: {
-        ...mapGetters(['album'])
+        ...mapGetters(['dj'])
     },
     data(){
         return {
-            albums:[]
+            albums:[],
+            songs:[]
         }
     },
     methods: {
+        fanhui(){
+            this.$router.back()
+        },
+        tt(){
+            console.log(this.dj)
+        },
+        fh(){
+
+        },
         time(value){
             let date = new Date(value);
                     let y = date.getFullYear();// 年
@@ -81,13 +83,21 @@ export default {
                     d = d < 10 ? ('0' + d) : d;
                     return y + '-' + MM + '-' + d 
         },
-    fanhui(){
-        this.$emit('fff')
-        console.log(111)
-    }
+        getsongs(){
+            this.$ajax.get('http://140.143.128.100:3000/dj/program',{
+                params:{
+                    rid:this.dj.id
+                }
+            }).then((res) => {
+               let len = res.data.programs
+               console.log(this.songs)
+               this.songs = len
+               console.log(this.songs)
+            })
+        },
     },
     created(){
-        this.getlist()
+       this.getsongs()
     },
     mounted(){
         window.onscroll =  ()=> {

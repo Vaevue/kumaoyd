@@ -17,3 +17,5 @@ export const mv =  state => state.mv
 export const singer = state => state.singer
 
 export const album = state => state.album
+
+export const dj = state => state.dj

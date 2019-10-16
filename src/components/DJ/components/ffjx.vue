@@ -1,17 +1,17 @@
 <template>
     <div class ='ffjxContainer'>
        <div class="top">
-            <span class ='fa fa-arrow-left'></span>
+            <span class ='fa fa-arrow-left' @click ='fh'></span>
         付费精品
        </div>
        <div class="cont">
            <ul>
-               <li>
-                   <img src="https://p2.music.126.net/9HtWLExzL3foUEABILecog==/109951163287033746.jpg" alt="">
+               <li v-for ='item in aarr' :key ='item.id'>
+                   <img v-lazy="item.picUrl">
                    <div class="right">
-                       <p class="name">听歌学英文</p>
-                       <p class="jieshao">【完结】Story - 主讲老师：兴东Ollie（附获奖名单）</p>
-                       <p class="money">￥28</p>
+                       <p class="name">{{item.name}}</p>
+                       <p class="jieshao">{{item.lastProgramName}}</p>
+                       <p class="money">￥{{item.programCount}}</p>
                    </div>
                </li>
            </ul>
@@ -23,10 +23,14 @@
 export default {
     data(){
         return {
-            page:1
+            page:1,
+            aarr:[]
         }
     },
     methods: {
+        fh(){
+            this.$emit('fh')
+        },
         getffjp () {
             this.$ajax.get('http://140.143.128.100:3000/dj/paygift',{
                 params:{
@@ -35,6 +39,7 @@ export default {
                 }
             }).then((res) => {
                 console.log(res.data.data.list)
+                this.aarr = res.data.data.list
             })
         }
     },
@@ -51,17 +56,41 @@ export default {
         width: 100%;
         background-color: #fff;
         top: 0;
-        padding: 0 20px;
+        
         .cont{
+            padding: 0 20px;
+            background-color: #fff;
             ul{
                 li{
                     display:flex;
-                    margin-top: 20px;
+                    background: #fff;
+                     padding-top: 23px;
                     img{
-                        width: 150px;
-                        height: 200px;
+                        min-width: 150px;
+                        min-height: 200px;
+                        max-width: 150px;
+                        max-height: 200px;
                     }
-                    .right{}
+                    .right{
+                        margin-left:20px;
+                        font-size: 12px;
+                        p{
+                        padding: 20px 0;
+                        }
+                        .name{
+                            font-size: 15px;
+                        }
+                        .jieshao{
+                        display: -webkit-box;
+                        -webkit-box-orient: vertical;
+                        -webkit-line-clamp: 3;
+                        overflow: hidden;
+                        color:#999;
+                        }
+                        p:last-child{
+                            color:red;
+                        }
+                    }
                     
                 }
             }

@@ -7,10 +7,10 @@
                             <li :class ='current == index ? "red" : ""' @click ='gogogo(item,index)' v-for ='(item,index) in list' :key ='item.id'>
                                    <div class="name">
                                        <p class ='gequname'>{{item.name}}</p>
-                                       <p class ='singername'>{{item.ar[0].name || item.name}}</p>
+                                       <p class ='singername'>{{item.dj.nickname}}</p>
                                    </div>
                                 <p class="pright">
-                                    <span @click.stop ='gomv(item)' :class ='item.mv == 0 ? "" : "video fa fa-youtube-play"'></span>
+                                    
                                     <span class ='gengduo fa fa-ellipsis-v'></span>
                                 </p>
                             </li>
@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import {createSong} from './js/Song'
+import {createdj} from './js/Song'
 import {mapActions,mapGetters,mapMutations} from 'vuex'
 import vLoading from './loading'
 export default {
@@ -44,13 +44,14 @@ export default {
     },
    methods: {
        gomv(item){
-           console.log(this.list)
+           console.log(item)
        },
        gogogo(item,index){
+           this.$emit('fh')
         this.lis = []
           let arr = this.list
           for(let i =0;i<arr.length;i++){
-              this.lis.push(createSong(arr[i]))
+              this.lis.push(createdj(arr[i]))
           }
           console.log(this.lis)
           this.selectplay({
@@ -76,6 +77,8 @@ export default {
     color:#31c27c !important;
 }
     .gequlistContainers{
+            position: absolute;
+    z-index: 9999999;
         width: 100%;
             .contents{
                 width: 100%;

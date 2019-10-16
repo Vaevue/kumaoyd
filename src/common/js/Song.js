@@ -27,7 +27,19 @@ export function createSong(item){
         lyric:''
     })
 }
-
+export function createdj(item){
+    return new Song ({
+        id:item.mainSong.id,
+        songname : item.name,
+        alname : item.dj.brand,
+        singername : item.dj.nickname,
+        mvid:item.radio.videos,
+        interval : item.duration,
+        img:item.coverUrl,
+        url : ` https://music.163.com/song/media/outer/url?id=${item.mainSong.id}.mp3`,
+        lyric:null
+    })
+}
 function sinname(singer){
     let ret = []
     if(!singer){
