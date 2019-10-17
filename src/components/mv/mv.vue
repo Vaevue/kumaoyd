@@ -40,6 +40,9 @@
         <div class="pl">
             <v-pl :hotcomments ='hotcomments' :comments="comments" @loadgd ='load' :text ='text'></v-pl>
         </div>
+        <div class="fh" @click ='back'>
+            <span class ='fa fa-caret-left'></span>
+        </div>
     </div>
 </template>
 
@@ -71,6 +74,9 @@ export default {
                 ul.classList.add('o')
             }
         },
+        back(){
+            this.$router.back()
+        },
         load(){
             this.text = '拼命加载中...'
             this.page++
@@ -93,12 +99,22 @@ export default {
             this.getxgvideo()
         },
         getmvurl(){
+            console.log(this.mv)
             this.$ajax.get('http://140.143.128.100:3000/mv/detail',{
                 params:{
                     mvid : this.mv.id
                 }
             }).then((res) => {
-              this.mvurl =   res.data.data.brs[1080]
+                console.log(111)
+                console.log(res.data.data.brs)
+                if(res.data.data.brs[720]){
+                     this.mvurl =   res.data.data.brs[720]
+                }else if (res.data.data.brs[1080]){
+                    this.mvurl =   res.data.data.brs[1080]
+                }else if(res.data.data.brs[480]){
+                    this.mvurl =res.data.data.brs[480]
+                }
+              
               this.da =  res.data.data
               console.log(this.da)
               this.getxgvideo()
@@ -144,6 +160,19 @@ export default {
 </script>
 
 <style lang="less" scoped>
+.fh{
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    background-color: #333;
+    position:fixed;
+    bottom:20px;
+    right: 20px;
+    font-size: 20px;
+    color:#fff;
+    line-height: 30px;
+    text-align:center;
+}
 .pl{
     margin-top:30px;
 }

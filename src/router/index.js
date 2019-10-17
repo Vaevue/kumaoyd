@@ -11,6 +11,7 @@ import singerinfo from '../components/singer/singerinfo.vue'
 import album from '../common/album'
 import dj from '../components/DJ/index.vue'
 import djs from '../common/DJ'
+import video from '../components/video/index.vue'
 vue.use(Router)
 const router =  new Router ({
         routes:[
@@ -57,6 +58,10 @@ const router =  new Router ({
             {
                 path:'/album',
                 component:album
+            },
+            {
+                path:'/video',
+                component:video
             }
         ]
 })
