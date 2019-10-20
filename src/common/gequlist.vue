@@ -25,7 +25,7 @@
                                        <p class ='singername'>{{item.ar[0].name}}</p>
                                    </div>
                                 <p class="pright">
-                                    <span class ='video fa fa-youtube-play'></span>
+                                    <span  @click.stop ='gomv(item)' :class ='item.mv == 0 ? "" : "video fa fa-youtube-play"'></span>
                                     <span class ='gengduo fa fa-ellipsis-v'></span>
                                 </p>
                             </li>
@@ -62,6 +62,13 @@ export default {
     },
     components:{vScroll,vPlear,vLoading},
    methods: {
+       gomv(item){
+        let mv = {
+            id: item.mv
+        }
+         this.setmv(mv)
+         this.$router.push('/mv')
+       },
        gogogo(item,index){
            console.log(item)
         this.lis = []
@@ -87,7 +94,8 @@ export default {
        },
       ...mapActions(['selectplay']),
        ...mapMutations({
-            setplct : 'SET_PLAYCONTENT'
+            setplct : 'SET_PLAYCONTENT',
+            setmv : 'SET_MV'
         })
    },
    computed : {
