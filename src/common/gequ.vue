@@ -43,8 +43,12 @@ export default {
         }
     },
    methods: {
-       gomv(item){
-           console.log(this.list)
+ gomv(item){
+        let mv = {
+            id: item.mv
+        }
+         this.setmv(mv)
+         this.$router.push('/mv')
        },
        gogogo(item,index){
         this.lis = []
