@@ -15,8 +15,16 @@
                 <div class="leftaas" v-show ='flag'>
                 <div class="user">
                     <div class="img">
-                        <img src="http://b-ssl.duitang.com/uploads/item/201708/08/20170808120640_xdnMs.thumb.700_0.jpeg">
-                        <p>前端仔</p>
+                        <div class="wdl">
+                            <ul>
+                              <li >你还未登陆</li>
+                              <li>登录倾听更多音乐</li>
+                              <li class ='ljdl' @click ='login'>立即登录</li>
+                            </ul>
+                        </div>
+                        <div class="ydl">
+                          
+                        </div>
                     </div>
                 </div>
               <div class="kait">
@@ -116,6 +124,10 @@ export default {
     methods:{
         flagss(){
             this.flag = !this.flag
+        },
+        login(){
+          this.$router.push('/login')
+          this.flagss()
         }
     }
 }
@@ -181,6 +193,8 @@ export default {
         .img{
             border-bottom: 1px solid #898989;
             padding-bottom: 20px;
+            position:relative;
+            height:75px;
             img{
                 width: 100px;
                 height: 100px;
@@ -191,6 +205,24 @@ export default {
             p{
                 text-align:center;
                 color:#999;
+            }
+            .wdl{
+              position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    font-size: 13px;
+    line-height: 24px;
+    text-align: center;
+    color: #333;
+    .ljdl {
+      height:30px;
+      width: 75px;
+      text-align:center;
+      line-height:30px;
+      border:1px solid #999;
+      margin: 0 auto;
+    }
             }
         }
     }
