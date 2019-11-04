@@ -58,6 +58,7 @@ export default {
         return {
          arr:[],
          lis:[],
+         bflist:[]
         }
     },
     components:{vScroll,vPlear,vLoading},
@@ -82,6 +83,9 @@ export default {
               index : index
           })
           console.log(this.currentSong)
+          this.bflist.push(createSong(item))
+          console.log(this.bflist)
+          localStorage.setItem('bflist',JSON.stringify(this.bflist))
        },
        scroll(obj){
         let tonav = document.getElementById('tonav')

@@ -31,8 +31,7 @@ export default {
     },
     methods:{
         goalbum(item){
-            this.setdj(item)
-            this.$router.push('/dj')
+            this.$router.push('/yuncun')
         },
         qiehuan(){
             var that = this

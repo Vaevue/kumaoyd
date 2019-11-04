@@ -118,6 +118,8 @@
               </div>
         </div>
         </transition>
+
+      
 </div>
 </template>
 
@@ -150,6 +152,7 @@ export default {
           localStorage.removeItem('user')
           localStorage.setItem('loginType',false)
           this.loginType = false
+          this.$ajax.get('http://140.143.128.100:3000/logout')
         }
     },
     created(){

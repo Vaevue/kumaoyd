@@ -2,7 +2,7 @@
 	<div class="myContainer">
 		<div class="me">
 			<ul>
-				<li><i class ='fa fa-music'></i>最近播放<span>(0)</span></li>
+				<li @click ='golist'><i class ='fa fa-music'></i>最近播放<span>({{data.length || 0}})</span></li>
 				<li><i class ='fa fa-music'></i>我的电台<span>(0)</span></li>
 				<li><i class ='fa fa-user-plus'></i>我的收藏<span>(专辑/歌手/视频/专栏/Mlog)</span></li>
 			</ul>
@@ -11,24 +11,108 @@
 			<div class="top">
 				<div class="left">
 					<span class ='fa fa-angle-down'></span>
-				创建的歌单(1)
+				创建的歌单({{gedan.length}})
 				</div>
 				<div class="right">
-					<span class ='fa fa-plus'></span>
+					<span @click ='tianjia' class ='fa fa-plus'></span>
 				<span class ='fa fa-list'></span>
 				</div>
 			</div>
+			<v-gedan :gedan = 'gedan'></v-gedan>
+			<p class ='jietu'> <span class ='jiandao fa fa-scissors'></span> 截图导入歌单</p>
+		</div>
+
+		<div class="tjgd">
+			<v-tj :result = 'result' title ='推荐歌单'></v-tj>
 		</div>
 	</div>
 </template>
 
 <script>
+import vGedan from '../search/comp/gedan'
+import vTj from '../find/Recommend'
 	export default {
+		components:{
+			vGedan,
+			vTj
+		},
+		data(){
+			return {
+				user : [],
+				gedan : [],
+				result: [],
+				data:[]
+			}
+		},
+		methods : {
+			getuserDj () {
+	let data = JSON.parse(localStorage.getItem('user'))
+	this.user = data.profile
+	console.log(this.user.userId)
+				this.$ajax.get('http://140.143.128.100:3000/user/playlist',{
+				params:{
+						uid : this.user.userId
+				}
+				}).then((res) => {
+					this.gedan = res.data.playlist
+				})
+			},
+			gettjgd(){
 
+				this.$ajax.get('http://140.143.128.100:3000/personalized',{
+					params:{
+						limit:20
+					}
+				}).then((res)=>{
+					this.result = res.data.result
+				})
+			},
+			tianjia(){
+	this.$ajax.get('http://140.143.128.100:3000/login/refresh').then((res)=>{
+						console.log(res.data)
+					})
+				this.$ajax.get('http://140.143.128.100:3000/playlist/create',{
+					params:{
+						name : '测试歌单'
+					}
+				}).then((res) => {
+					console.log(res.data)
+				})
+			},
+			zjbf(){
+				this.data = JSON.parse(localStorage.getItem('bflist'))
+				console.log(this.data)
+			},
+			golist(){
+				this.$router.push('/bflist')
+			}
+		},
+		created(){
+			this.getuserDj()
+			this.gettjgd()
+			this.zjbf()
+		}
 	}
+
 </script>
 
 <style lang ='less' scoped>
+.tjgd{
+	margin-top: 30px;
+	padding: 0 20px;
+}
+.jietu{
+	margin-top: 30px;
+	width: 100%;
+	height: 50px;
+	line-height: 50px;
+	text-align:center;
+	border:1px dashed #999;
+}
+.jiandao{
+	transform: rotate(-90deg);
+	font-size: 20px;
+}
 	.myContainer{
 	.me {
 		ul {

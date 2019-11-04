@@ -14,6 +14,7 @@ import djs from '../common/DJ'
 import video from '../components/video/index.vue'
 import login from '../components/index/login.vue'
 import my from '../components/My/My.vue'
+import bflist from '../components/My/components/bflist.vue'
 vue.use(Router)
 const router =  new Router ({
         routes:[
@@ -72,6 +73,10 @@ const router =  new Router ({
             {
                 path:'/my',
                 component:my
+            },
+            {
+                path:'/bflist',
+                component:bflist
             }
         ]
 })

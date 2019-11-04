@@ -51,6 +51,7 @@ import {Toast} from 'mint-ui'
 					localStorage.setItem('loginType',true)
 					this.$router.push('/')
 					Toast('登录成功')
+
 				})
 			}
 		}

@@ -40,6 +40,7 @@ export default {
         return {
          arr:[],
          lis:[],
+         bflist:[]
         }
     },
    methods: {
@@ -55,14 +56,18 @@ export default {
           let arr = this.list
           for(let i =0;i<arr.length;i++){
               this.lis.push(createSong(arr[i]))
+              console.log(111)
           }
-          console.log(this.lis)
+          console.log('播放')
+          console.log(createSong(item))
+         
           this.selectplay({
               list : this.lis,
               index : index
-          })
-          console.log(this.currentSong)
-          
+          })   
+          this.bflist.push(item)
+          console.log(this.bflist)
+          localStorage.setItem('bflist',JSON.stringify(this.bflist))
        },
       ...mapActions(['selectplay']),
        ...mapMutations({

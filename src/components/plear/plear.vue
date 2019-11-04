@@ -38,7 +38,7 @@
             <div class="gongn">
                 <span :class ='iconfont' @click ='chanicon'></span>
                 <span class ='mv fa fa-youtube-play'></span>
-                <span class ="pl fa fa-commenting-o"></span>
+                <span @click ='pl' class ="pl fa fa-commenting-o"></span>
             </div>
         </div>
         <div class="smallplear" v-show ='!plflag' @click ='open'>
@@ -210,6 +210,9 @@ export default {
             if(!this.playing){
                 this.toogleplay()
             }
+        },
+        pl(){
+            this.$router.push('/pl')
         },
         tooglepreve(){
             const barwidth = this.$refs.oldtime.clientWidth
