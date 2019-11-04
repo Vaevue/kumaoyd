@@ -15,15 +15,16 @@
                 <div class="leftaas" v-show ='flag'>
                 <div class="user">
                     <div class="img">
-                        <div class="wdl">
+                        <div class="wdl" v-if ='loginType == "false"'>
                             <ul>
                               <li >你还未登陆</li>
                               <li>登录倾听更多音乐</li>
                               <li class ='ljdl' @click ='login'>立即登录</li>
                             </ul>
                         </div>
-                        <div class="ydl">
-                          
+                        <div class="ydl" v-if ='loginType == "true"'>
+                          <img :src="logindata.profile.avatarUrl">
+                          <p>{{logindata.profile.nickname}}</p>
                         </div>
                     </div>
                 </div>
@@ -103,6 +104,13 @@
                               定时关闭音乐
                           </div>
                       </li>
+
+                      <li>
+                          <div class="left" @click ='tc'>
+                              <span class ='fa fa-sign-out'></span>
+                              退出登录
+                          </div>
+                      </li>
                   </ul>
               </div>
               <div class="close" @click ='flagss'>
@@ -118,7 +126,9 @@ export default {
     name : 'header',
     data(){
         return {
-            flag : false
+            flag : false,
+            logindata :[] ,
+            loginType: false
         }
     },
     methods:{
@@ -128,7 +138,22 @@ export default {
         login(){
           this.$router.push('/login')
           this.flagss()
+        },
+        ss(){
+          this.loginType = localStorage.getItem('loginType')
+          let data = localStorage.getItem('user')
+          console.log(JSON.parse(data))
+          this.logindata = JSON.parse(data)
+          console.log(this.loginType)
+        },
+        tc(){
+          localStorage.removeItem('user')
+          localStorage.setItem('loginType',false)
+          this.loginType = false
         }
+    },
+    created(){
+      this.ss()
     }
 }
 </script>
@@ -196,8 +221,8 @@ export default {
             position:relative;
             height:75px;
             img{
-                width: 100px;
-                height: 100px;
+                width: 60px;
+                height: 60px;
                 border-radius: 50%;
                 display:block;
                 margin:0 auto;
@@ -205,6 +230,7 @@ export default {
             p{
                 text-align:center;
                 color:#999;
+                margin-top:10px;
             }
             .wdl{
               position: absolute;

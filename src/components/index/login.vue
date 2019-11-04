@@ -9,39 +9,49 @@
 				<div class="label">
 					<div class="input">
 						<div class="tou">+86</div>
-						<input type="text" placeholder="请输入手机号">
+						<input type="text" placeholder="请输入手机号" v-model ='zh'>
 
 					</div>
 
 				</div>
 
-				<input class ='psw' type="password" placeholder="请输入密码">
+				<input class ='psw' type="password" v-model ='psw' placeholder="请输入密码">
 
 				<div class="submit" @click ='go'>
-					下一步
+					登录
 				</div>
 			</div>
 
-			<transition name ='box'>
-
-			<div class="box" v-if = 'flag'>
-				<p class="tops">请输入验证码</p>
-			</div>
-			</transition>
 
 	</div>
 </template>
 
 <script>
+import {Toast} from 'mint-ui'
 	export default {
 		data(){
 			return　{
-				flag : false
+				flag : false,
+				zh : '',
+				psw : ''
 			}
 		},
 		methods:{
 			go(){
-				this.flag = ! this.flag
+				this.$ajax.get('http://140.143.128.100:3000/login/cellphone',{
+					params:{
+						countrycode : 86,
+						phone : this.zh,
+						password : this.psw
+					}
+				}).then((res) => {
+					console.log(res)
+					let parse = res.data
+					localStorage.setItem('user',JSON.stringify(parse))
+					localStorage.setItem('loginType',true)
+					this.$router.push('/')
+					Toast('登录成功')
+				})
 			}
 		}
 	}
