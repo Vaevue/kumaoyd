@@ -27,8 +27,7 @@ export default {
   created() {
     
     if (this._isMobile()) {
-      var url1 = 'www.baidu.com'
-      location.href = 'https://vaevue.github.io/kumaoyd/dist/index.html'
+      
     } else {
    window.location.href = 'https://vaevue.github.io/kumaoPC/dist/index.html'
     }
