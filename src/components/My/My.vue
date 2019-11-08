@@ -1,8 +1,16 @@
 <template>
 	<div class="myContainer">
+		<!-- <div class="wdl" v-if ='flag == false'>
+				<ul>
+					<li @click ='ss'>您还未登录</li>
+					<li>登录倾听更多歌曲，享受更多特权</li>
+					<li class='login' @click ='gologin'>立即登录</li>
+				</ul>
+		</div> -->
+		<div class="ydl">
 		<div class="me">
 			<ul>
-				<li @click ='golist'><i class ='fa fa-music'></i>最近播放<span>({{data.length || 0}})</span></li>
+				<li @click ='golist'><i class ='fa fa-music'></i>最近播放<span>({{data.length}})</span></li>
 				<li><i class ='fa fa-music'></i>我的电台<span>(0)</span></li>
 				<li><i class ='fa fa-user-plus'></i>我的收藏<span>(专辑/歌手/视频/专栏/Mlog)</span></li>
 			</ul>
@@ -25,6 +33,7 @@
 		<div class="tjgd">
 			<v-tj :result = 'result' title ='推荐歌单'></v-tj>
 		</div>
+		</div>
 	</div>
 </template>
 
@@ -41,10 +50,16 @@ import vTj from '../find/Recommend'
 				user : [],
 				gedan : [],
 				result: [],
-				data:[]
+				data:[],
 			}
 		},
 		methods : {
+			ss(){
+				console.log(this.flag)
+			},
+			gologin(){
+				this.$router.push('/login')
+			},
 			getuserDj () {
 	let data = JSON.parse(localStorage.getItem('user'))
 	this.user = data.profile
@@ -80,8 +95,11 @@ import vTj from '../find/Recommend'
 				})
 			},
 			zjbf(){
-				this.data = JSON.parse(localStorage.getItem('bflist'))
+				this.data = JSON.parse(localStorage.getItem('bflist') || [])
 				console.log(this.data)
+				console.log(111)
+				console.log(222)
+				
 			},
 			golist(){
 				this.$router.push('/bflist')
@@ -91,12 +109,34 @@ import vTj from '../find/Recommend'
 			this.getuserDj()
 			this.gettjgd()
 			this.zjbf()
+			
+		},
+		watch : {
+			
 		}
 	}
+	
 
 </script>
 
 <style lang ='less' scoped>
+.wdl{
+	ul{
+		li{
+			width: 100%;
+			text-align: center;
+			line-height: 40px;
+			color:#999;
+			font-size: 15px;
+		}
+		.login {
+			width: 150px;
+			height: 40px;
+			border:1px solid #999;
+			margin:100px auto;
+		}
+	}
+}
 .tjgd{
 	margin-top: 30px;
 	padding: 0 20px;

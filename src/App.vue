@@ -15,9 +15,24 @@ export default {
     vIndex,
     vPlear
   },
+  methods:{
+    _isMobile() {
+	 let flag = navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i)
+	 return flag;
+}
+  },
   computed: {
     ...mapGetters(['playcontent'])
   },
+  created() {
+    
+    if (this._isMobile()) {
+      var url1 = 'www.baidu.com'
+      location.href = 'https://vaevue.github.io/kumaoyd/dist/index.html'
+    } else {
+   window.location.href = 'https://vaevue.github.io/kumaoPC/dist/index.html'
+    }
+  }
 }
 </script>
 

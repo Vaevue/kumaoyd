@@ -13,6 +13,7 @@ import store from './store/index'
 Vue.use(mintui)
 
 import {Lazyload} from 'mint-ui'
+
 Vue.use(Lazyload, {
   preLoad: 1.3,
   error: require('./assets/img/jzsb.jpeg'),
@@ -25,7 +26,6 @@ import Router from 'vue-router'
 Vue.use(Router)
 Vue.use(store)
 /* eslint-disable no-new */
-
 
 new Vue({
   el: '#app',

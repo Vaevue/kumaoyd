@@ -72,7 +72,8 @@ const router =  new Router ({
             },
             {
                 path:'/my',
-                component:My
+                component:My,
+                meta:{requireAuth: true}
             },
             {
                 path:'/bflist',
@@ -81,4 +82,5 @@ const router =  new Router ({
         ]
 })
 
+  
 export default router
