@@ -27,7 +27,7 @@ export default {
   created() {
     
     if (this._isMobile()) {
-      
+      return 
     } else {
    window.location.href = 'https://vaevue.github.io/kumaoPC/dist/index.html'
     }
