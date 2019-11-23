@@ -58,6 +58,10 @@
               </div>
               <div class="li">
                   <ul>
+                    <li @click ='login'>
+                        登录  /  注册
+                      </li>
+
                       <li>
                           <div class="left">
                               <span class ='fa fa-ticket'></span>
@@ -89,7 +93,7 @@
                           </div>
                       </li>
 
-
+             
                         <li>
                           <div class="left">
                               <span class ='fa fa-bell'></span>
@@ -142,7 +146,7 @@ export default {
           this.flagss()
         },
         ss(){
-          this.loginType = localStorage.getItem('loginType')
+          this.loginType = localStorage.getItem('loginType') || false
           let data = localStorage.getItem('user')
           console.log(JSON.parse(data))
           this.logindata = JSON.parse(data)

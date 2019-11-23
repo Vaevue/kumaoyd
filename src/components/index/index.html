@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    
+    <style>
+        .input1{
+            width: 100px;
+            height: 45px;
+            border:none;
+            border-radius:10px;
+            border:1px solid #999;
+            background-color: #eee;
+            transition:all .5s ease;
+        }
+        .input1dh {
+            animation : input1 .5s forwards;
+        }
+        .input2dh{
+            animation : input2 .5s forwards;
+        }
+        @keyframes input1 {
+            0%{
+                width: 100px;
+                transition:all .5s ease;
+            }
+            100%{
+                width: 300px;
+                transition:all .5s ease;
+            }
+        }
+
+        @keyframes input2 {
+            0%{
+                width:300px;
+                transition:all .5s ease;
+            }
+            100%{
+                width: 100px;
+                transition:all .5s ease;
+            }
+        }
+
+        .div {
+            height: 1500px;
+        }
+
+        .box {
+            height: 400px;
+            width:400px;
+            background-color: pink;
+            border:1px solid red;
+            opacity:.2;
+            transform:translateY(150px);
+            margin-bottom: 300px;
+        }
+        .boxdh {
+            animation: jianru 1s forwards;
+        }
+        @keyframes jianru {
+            0%{
+            opacity:.2;
+            transform:translateY(150px);
+            }
+            100%{
+                opacity:1;
+                transform:translateY(0px);
+                transition:all .5s ease;
+            }
+        }
+
+        li{
+            list-style:none;
+        }
+
+        li{
+            width: 235px;
+            height: 176px;
+            overflow: hidden;
+        }
+        img{
+            transition:all .3s ease;
+        }
+        img:hover{
+            transform:scale(1.1);
+            transition:all .3s ease;
+        }
+    </style>   
+</head>
+<body>
+    <video src="./许嵩-雅俗共赏(超清).mp4" poster="正在加载中，请稍后" autoplay></video>
+    <!-- 1 ·  input 输入动画 -->
+    <input class ='input1' type="text" >
+    <!-- 2 ·  渐入效果 -->
+    <div class="div">
+          <ul>
+              <li>
+                  <img src="https://gss3.bdstatic.com/-Po3dSag_xI4khGkpoWK1HF6hhy/baike/s%3D235/sign=245a1f81251f95caa2f595b5fc167fc5/aa18972bd40735fa559d54469e510fb30e2408db.jpg" alt="">
+              </li>
+          </ul>
+    </div>
+
+    <div class="box"></div>
+    <script>
+        // 输入框变长变短动画
+        let input = document.getElementsByClassName('input1')[0];
+        let box = document.getElementsByClassName('box')[0];
+        input.addEventListener('focus',function(){
+            this.classList.remove('input2dh')
+            this.classList.add('input1dh')
+        })
+        input.addEventListener('blur',function(){
+            this.classList.remove('input1dh')
+            this.classList.add('input2dh')
+        })
+
+        // 渐入
+
+        window.addEventListener('scroll',function(e){
+            console.log(window.pageYOffset)
+            if(window.pageYOffset >= 700){
+                    box.classList.add('boxdh')
+            }
+        })
+let fn = function (func,time){
+    let timer = null
+    return ()=>{
+        if(!timer){
+        timer = setTimeout(()=>{
+            func.apply(this,arguments)
+            timer = null
+        },time)
+    }
+    }
+}
+        function arr () {
+            console.log('执行了')
+        }
+        window.addEventListener('scroll',fn(arr,1000))
+    </script>
+</body>
+</html>

@@ -93,6 +93,9 @@ export default {
         },
         keywords(it){
             console.log(it.searchWord)
+            this.searchWord = it.searchWord 
+            this.getsearch()
+            this.flag = true
         },
         getmoren(){
             this.$ajax.get('http://140.143.128.100:3000/search/default').then((res)=>{
